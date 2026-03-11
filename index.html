@@ -93,5 +93,12 @@
 
     <p class="footer">Contact: <a href="https://github.com/dieeer" style="color:#111">@dieeer</a></p>
   </main>
+
+<script>
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.getRegistrations().then((regs) => regs.forEach((r) => r.unregister()));
+}
+</script>
+
 </body>
 </html>
