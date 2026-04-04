@@ -5,93 +5,281 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Justin Reid — iOS Engineer</title>
   <meta name="description" content="Justin Reid — iOS engineer building polished products with Swift, systems thinking, and AI-assisted workflows." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Newsreader:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
   <style>
-    :root { --bg:#f8f8f6; --card:#ffffff; --text:#111111; --muted:#444444; --accent:#111111; --accent2:#222222; }
-    * { box-sizing:border-box; }
-    body { margin:0; font-family: "Iowan Old Style", "Palatino Linotype", Palatino, "Times New Roman", serif; background:var(--bg); color:var(--text); }
-    .wrap { max-width:1000px; margin:0 auto; padding:40px 20px 60px; }
-    h1 { font-size:clamp(2rem,5vw,3.5rem); margin:0 0 8px; }
-    .lead { color:var(--muted); max-width:760px; line-height:1.6; }
-    .chips { display:flex; flex-wrap:wrap; gap:10px; margin:18px 0 28px; }
-    .chip { border:1px solid #d8d8d2; border-radius:999px; padding:6px 12px; color:#222; font-size:13px; background:#fff; }
-    .grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:14px; margin-top:20px; }
-    .card { background:var(--card); border:1px solid #d9d9d4; border-radius:14px; padding:16px; }
-    .card h3 { margin:0 0 6px; font-size:1.15rem; }
-    .meta { color:var(--accent2); font-size:12px; text-transform:uppercase; letter-spacing:.7px; margin-bottom:8px; }
-    .card p { margin:0 0 12px; color:var(--muted); line-height:1.5; }
-    .links a { color:var(--accent); text-decoration:underline; margin-right:12px; font-weight:600; }
-    .links a:hover { text-decoration:underline; }
-    .section { margin-top:34px; }
-    .section h2 { font-size:1.2rem; margin:0 0 10px; }
-    .footer { margin-top:36px; color:var(--muted); font-size:14px; }
+    :root {
+      --bg: #fafaf8;
+      --card: #ffffff;
+      --text: #111111;
+      --muted: #555555;
+      --subtle: #888888;
+      --border: #e4e4e0;
+      --accent: #111111;
+      --hover: #f4f4f2;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      -webkit-font-smoothing: antialiased;
+      line-height: 1.6;
+    }
+
+    .wrap {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 72px 24px 80px;
+    }
+
+    /* Header */
+    header { margin-bottom: 56px; }
+
+    header h1 {
+      font-family: 'Newsreader', Georgia, serif;
+      font-size: clamp(2.2rem, 5vw, 3rem);
+      font-weight: 500;
+      letter-spacing: -0.03em;
+      line-height: 1.1;
+      margin-bottom: 16px;
+    }
+
+    header p {
+      color: var(--muted);
+      font-size: 15px;
+      max-width: 540px;
+      line-height: 1.7;
+    }
+
+    .chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 20px;
+    }
+
+    .chip {
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--muted);
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      padding: 5px 12px;
+      letter-spacing: 0.01em;
+    }
+
+    /* Section headings */
+    .section { margin-bottom: 48px; }
+
+    .section-label {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--subtle);
+      margin-bottom: 20px;
+    }
+
+    /* Project cards */
+    .projects {
+      display: flex;
+      flex-direction: column;
+      gap: 1px;
+      background: var(--border);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      overflow: hidden;
+    }
+
+    .project {
+      background: var(--card);
+      padding: 24px;
+      display: flex;
+      gap: 20px;
+      align-items: flex-start;
+      text-decoration: none;
+      color: inherit;
+      transition: background 0.15s;
+    }
+
+    .project:hover { background: var(--hover); }
+
+    .project-icon {
+      width: 44px;
+      height: 44px;
+      min-width: 44px;
+      border-radius: 11px;
+      background: var(--text);
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Newsreader', Georgia, serif;
+      font-size: 18px;
+      font-weight: 600;
+      margin-top: 2px;
+    }
+
+    .project-icon.alt { background: #1a1a2e; }
+    .project-icon.alt2 { background: #2d2d2d; }
+
+    .project-body { flex: 1; min-width: 0; }
+
+    .project-header {
+      display: flex;
+      align-items: baseline;
+      gap: 10px;
+      margin-bottom: 4px;
+    }
+
+    .project-name {
+      font-weight: 600;
+      font-size: 15px;
+    }
+
+    .project-tag {
+      font-size: 11px;
+      color: var(--subtle);
+      white-space: nowrap;
+    }
+
+    .project-desc {
+      font-size: 14px;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
+    .project-arrow {
+      color: var(--subtle);
+      font-size: 14px;
+      margin-top: 4px;
+      transition: transform 0.15s;
+    }
+
+    .project:hover .project-arrow { transform: translateX(3px); }
+
+    /* How I work */
+    .prose {
+      font-family: 'Newsreader', Georgia, serif;
+      font-size: 17px;
+      color: var(--muted);
+      line-height: 1.75;
+      max-width: 560px;
+    }
+
+    /* Footer */
+    footer {
+      padding-top: 32px;
+      border-top: 1px solid var(--border);
+      display: flex;
+      gap: 20px;
+      align-items: center;
+    }
+
+    footer a {
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--muted);
+      text-decoration: none;
+      transition: color 0.15s;
+    }
+
+    footer a:hover { color: var(--text); }
+
+    /* Responsive */
+    @media (max-width: 480px) {
+      .wrap { padding: 48px 18px 60px; }
+      .project { padding: 18px 16px; }
+    }
   </style>
 </head>
 <body>
   <main class="wrap">
-    <h1>Justin Reid</h1>
-    <p class="lead">
-      iOS developer focused on high-polish product experiences, game systems, and AI-assisted shipping velocity.
-      I build fast, iterate from data, and care deeply about reliability, UX feel, and maintainable architecture.
-    </p>
-
-    <div class="chips">
-      <span class="chip">Swift / SwiftUI</span>
-      <span class="chip">Game Systems</span>
-      <span class="chip">Product Design</span>
-      <span class="chip">Automation & AI Workflows</span>
-      <span class="chip">CI / Build / Release</span>
-    </div>
+    <header>
+      <h1>Justin Reid</h1>
+      <p>
+        iOS engineer focused on high-polish product experiences, game systems,
+        and AI-assisted shipping velocity. I build fast, iterate from data, and
+        care deeply about reliability, UX feel, and maintainable architecture.
+      </p>
+      <div class="chips">
+        <span class="chip">Swift / SwiftUI</span>
+        <span class="chip">Game Systems</span>
+        <span class="chip">Product Design</span>
+        <span class="chip">Automation & AI</span>
+        <span class="chip">CI / Release</span>
+      </div>
+    </header>
 
     <section class="section">
-      <h2>Featured Projects</h2>
-      <div class="grid">
-        <article class="card">
-          <div class="meta">iOS Game • Product + Engineering</div>
-          <h3>BLACK.FIVE</h3>
-          <p>
-            A stylized card-game experience with custom rendering, gameplay systems, and rapid issue-to-release execution.
-            Built with a strong focus on feel, pacing, and visual identity.
-          </p>
-          <div class="links">
-            <a href="https://github.com/dieeer/BLACK.FIVE" target="_blank" rel="noreferrer">Repository</a>
+      <p class="section-label">Projects</p>
+      <div class="projects">
+        <a class="project" href="https://github.com/dieeer/BLACK.FIVE" target="_blank" rel="noreferrer">
+          <div class="project-icon">B</div>
+          <div class="project-body">
+            <div class="project-header">
+              <span class="project-name">BLACK.FIVE</span>
+              <span class="project-tag">iOS Game</span>
+            </div>
+            <p class="project-desc">
+              A stylized card-game experience with custom rendering, gameplay systems,
+              and rapid issue-to-release execution. Built with a focus on feel, pacing,
+              and visual identity.
+            </p>
           </div>
-        </article>
+          <span class="project-arrow">&rarr;</span>
+        </a>
 
-        <article class="card">
-          <div class="meta">iOS + Backend • AI Assistant</div>
-          <h3>Clendy</h3>
-          <p>
-            Secure, AI-powered calendar assistant. End-to-end product work spanning app behavior, API orchestration,
-            and practical automation for real-world schedule workflows.
-          </p>
-          <div class="links">
-            <a href="https://github.com/dieeer/Clendy" target="_blank" rel="noreferrer">Repository</a>
+        <a class="project" href="https://github.com/dieeer/Clendy" target="_blank" rel="noreferrer">
+          <div class="project-icon alt2">C</div>
+          <div class="project-body">
+            <div class="project-header">
+              <span class="project-name">Clendy</span>
+              <span class="project-tag">iOS + Backend</span>
+            </div>
+            <p class="project-desc">
+              Secure, AI-powered calendar assistant. End-to-end product work spanning
+              app behavior, API orchestration, and practical automation for real-world
+              schedule workflows.
+            </p>
           </div>
-        </article>
+          <span class="project-arrow">&rarr;</span>
+        </a>
 
-        <article class="card">
-          <div class="meta">Messaging Product • Full Stack</div>
-          <h3>Parley</h3>
-          <p>
-            Communication-focused product work with emphasis on interaction quality and product iteration speed.
-            Designed and shipped with practical, user-first tradeoffs.
-          </p>
-          <div class="links">
-            <a href="https://github.com/dieeer/parley" target="_blank" rel="noreferrer">Repository</a>
+        <a class="project" href="/automatron">
+          <div class="project-icon alt">A</div>
+          <div class="project-body">
+            <div class="project-header">
+              <span class="project-name">Automatron</span>
+              <span class="project-tag">iOS Utility</span>
+            </div>
+            <p class="project-desc">
+              Turns your Spotify listening history into a wallpaper that updates itself.
+              Native App Intents for Siri and Shortcuts automation, with premium filters
+              and grid customization.
+            </p>
           </div>
-        </article>
+          <span class="project-arrow">&rarr;</span>
+        </a>
       </div>
     </section>
 
     <section class="section">
-      <h2>How I work</h2>
-      <p class="lead">
-        I ship in tight loops: define scope, build quickly, measure outcomes, then harden what works.
-        I’m strongest where product sense and engineering execution have to move together.
+      <p class="section-label">How I work</p>
+      <p class="prose">
+        I ship in tight loops: define scope, build quickly, measure outcomes,
+        then harden what works. I'm strongest where product sense and
+        engineering execution have to move together.
       </p>
     </section>
 
-    <p class="footer">Contact: <a href="https://github.com/dieeer" style="color:#111">@dieeer</a></p>
+    <footer>
+      <a href="https://github.com/dieeer">GitHub</a>
+    </footer>
   </main>
 
 <script>
