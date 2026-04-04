@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Automatron — Generate Wallpaper Shortcut</title>
+  <meta name="description" content="Add the Automatron wallpaper shortcut to automate your iPhone wallpaper with Spotify album art.">
+  <meta property="og:title" content="Automatron — Generate Wallpaper Shortcut">
+  <meta property="og:description" content="Automate your iPhone wallpaper with your Spotify listening history.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://justinre.id/automatron">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --ink: #0d0d0d;
+      --deep-navy: #1a1a2e;
+      --cream: #f5f0eb;
+      --muted: rgba(255,255,255,0.86);
+      --secondary: rgba(255,255,255,0.64);
+      --tertiary: rgba(255,255,255,0.46);
+      --glass: rgba(255,255,255,0.08);
+      --glass-border: rgba(255,255,255,0.18);
+    }
+
+    body {
+      font-family: 'Space Grotesk', system-ui, -apple-system, sans-serif;
+      background: linear-gradient(135deg, var(--ink), var(--deep-navy));
+      color: var(--cream);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .container {
+      max-width: 480px;
+      width: 100%;
+      padding: 48px 24px 64px;
+    }
+
+    .hero {
+      text-align: center;
+      margin-bottom: 48px;
+    }
+
+    .app-icon {
+      width: 80px;
+      height: 80px;
+      border-radius: 18px;
+      background: var(--glass);
+      border: 1px solid var(--glass-border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 20px;
+      font-size: 36px;
+    }
+
+    .hero h1 {
+      font-size: 28px;
+      font-weight: 700;
+      margin-bottom: 8px;
+      letter-spacing: -0.02em;
+    }
+
+    .hero p {
+      font-size: 15px;
+      color: var(--secondary);
+      line-height: 1.5;
+    }
+
+    .card {
+      background: var(--glass);
+      border: 1px solid var(--glass-border);
+      border-radius: 20px;
+      padding: 24px;
+      margin-bottom: 20px;
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+    }
+
+    .card h2 {
+      font-size: 18px;
+      font-weight: 600;
+      margin-bottom: 6px;
+    }
+
+    .card p {
+      font-size: 14px;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
+    .steps {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+
+    .step {
+      display: flex;
+      gap: 16px;
+      align-items: flex-start;
+    }
+
+    .step-icon {
+      width: 44px;
+      height: 44px;
+      min-width: 44px;
+      border-radius: 50%;
+      background: var(--glass);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+    }
+
+    .step-content h3 {
+      font-size: 15px;
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+
+    .step-content p {
+      font-size: 13px;
+      color: var(--secondary);
+      line-height: 1.5;
+    }
+
+    .cta {
+      display: block;
+      width: 100%;
+      padding: 16px;
+      background: var(--cream);
+      color: var(--ink);
+      border: none;
+      border-radius: 14px;
+      font-family: inherit;
+      font-size: 16px;
+      font-weight: 600;
+      text-align: center;
+      text-decoration: none;
+      cursor: pointer;
+      margin-top: 32px;
+      transition: opacity 0.15s;
+    }
+
+    .cta:hover { opacity: 0.9; }
+
+    .cta-secondary {
+      display: block;
+      width: 100%;
+      padding: 16px;
+      background: var(--glass);
+      border: 1px solid var(--glass-border);
+      color: var(--cream);
+      border-radius: 14px;
+      font-family: inherit;
+      font-size: 15px;
+      font-weight: 600;
+      text-align: center;
+      text-decoration: none;
+      cursor: pointer;
+      margin-top: 12px;
+      transition: background 0.15s;
+    }
+
+    .cta-secondary:hover { background: rgba(255,255,255,0.12); }
+
+    .tip {
+      background: rgba(255,255,255,0.05);
+      border-radius: 12px;
+      padding: 16px;
+      margin-top: 24px;
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+    }
+
+    .tip-icon { font-size: 16px; min-width: 20px; }
+
+    .tip p {
+      font-size: 13px;
+      color: var(--secondary);
+      line-height: 1.5;
+    }
+
+    .footer {
+      text-align: center;
+      margin-top: 48px;
+      padding-top: 24px;
+      border-top: 1px solid var(--glass-border);
+    }
+
+    .footer p {
+      font-size: 12px;
+      color: var(--tertiary);
+    }
+
+    .footer a {
+      color: var(--secondary);
+      text-decoration: none;
+    }
+
+    .footer a:hover { color: var(--cream); }
+
+    .badge {
+      display: inline-block;
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--ink);
+      background: var(--cream);
+      padding: 3px 8px;
+      border-radius: 6px;
+      margin-bottom: 12px;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+
+    .back {
+      display: inline-block;
+      color: var(--secondary);
+      text-decoration: none;
+      font-size: 13px;
+      margin-bottom: 24px;
+      transition: color 0.15s;
+    }
+
+    .back:hover { color: var(--cream); }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <a class="back" href="/">&larr; justinre.id</a>
+
+    <div class="hero">
+      <div class="app-icon">A</div>
+      <h1>Automatron</h1>
+      <p>Turn your Spotify listening history into a wallpaper that updates itself.</p>
+    </div>
+
+    <div class="card">
+      <span class="badge">Siri Shortcut</span>
+      <h2>Generate Wallpaper</h2>
+      <p>
+        Creates a mosaic wallpaper from your recent Spotify album art using
+        your in-app modifiers — timescale, filters, grid size — and saves it
+        straight to Photos.
+      </p>
+      <a class="cta" href="shortcuts://run-shortcut?name=Generate%20Wallpaper%20with%20Automatron">
+        Open in Shortcuts
+      </a>
+      <a class="cta-secondary" href="shortcuts://">
+        Open Shortcuts App
+      </a>
+    </div>
+
+    <div class="card">
+      <h2>Set up automation</h2>
+      <div class="steps">
+        <div class="step">
+          <div class="step-icon">1</div>
+          <div class="step-content">
+            <h3>Install Automatron</h3>
+            <p>The app registers a native "Generate Wallpaper" action in Shortcuts automatically.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-icon">2</div>
+          <div class="step-content">
+            <h3>Create an automation</h3>
+            <p>Open Shortcuts, tap Automation, pick a trigger — time of day, charger connected, or a Focus mode.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-icon">3</div>
+          <div class="step-content">
+            <h3>Add the action</h3>
+            <p>Search for "Automatron" and add the "Generate Wallpaper" action to your automation.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-icon">4</div>
+          <div class="step-content">
+            <h3>Set your wallpaper</h3>
+            <p>Find the latest image in your "Automatron" album in Photos. Pair with a Focus-linked wallpaper for fully hands-free switching.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="tip">
+      <span class="tip-icon">*</span>
+      <p>
+        The shortcut uses whatever modifiers you've configured in the app — timescale, genre filters, grid columns, and watermark. Change them any time in Settings.
+      </p>
+    </div>
+
+    <div class="footer">
+      <p>
+        Built by <a href="https://justinre.id">Justin Reid</a>
+      </p>
+    </div>
+  </div>
+</body>
+</html>
