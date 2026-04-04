@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>automatron — Support</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --ink: #0d0d0d;
+      --deep-navy: #1a1a2e;
+      --cream: #f5f0eb;
+      --muted: rgba(255,255,255,0.86);
+      --secondary: rgba(255,255,255,0.64);
+      --tertiary: rgba(255,255,255,0.46);
+      --glass: rgba(255,255,255,0.08);
+      --glass-border: rgba(255,255,255,0.18);
+    }
+    body {
+      font-family: 'Space Grotesk', system-ui, -apple-system, sans-serif;
+      background: linear-gradient(135deg, var(--ink), var(--deep-navy));
+      color: var(--cream);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      -webkit-font-smoothing: antialiased;
+    }
+    .container { max-width: 600px; width: 100%; padding: 48px 24px 64px; }
+    .back {
+      display: inline-block;
+      color: var(--secondary);
+      text-decoration: none;
+      font-size: 13px;
+      margin-bottom: 32px;
+      transition: color 0.15s;
+    }
+    .back:hover { color: var(--cream); }
+    h1 { font-size: 24px; font-weight: 700; margin-bottom: 8px; letter-spacing: -0.02em; }
+    .subtitle { font-size: 14px; color: var(--secondary); margin-bottom: 32px; line-height: 1.6; }
+    h2 { font-size: 16px; font-weight: 600; margin: 28px 0 8px; }
+    p, li { font-size: 14px; color: var(--muted); line-height: 1.7; }
+    p + p { margin-top: 12px; }
+    ul { margin: 8px 0 0 20px; }
+    li { margin-bottom: 6px; }
+    a { color: var(--cream); }
+    .card {
+      background: var(--glass);
+      border: 1px solid var(--glass-border);
+      border-radius: 16px;
+      padding: 20px;
+      margin-top: 16px;
+    }
+    .card h3 { font-size: 15px; font-weight: 600; margin-bottom: 6px; }
+    .card p { font-size: 13px; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <a class="back" href="/automatron">&larr; automatron</a>
+    <h1>Support</h1>
+    <p class="subtitle">Having trouble with automatron? Here are the most common fixes and how to get help.</p>
+
+    <div class="card">
+      <h3>Spotify won't connect</h3>
+      <p>Make sure you have an active Spotify account. automatron uses Spotify's recently played API, which requires a Spotify Free or Premium account. If the login screen doesn't load, check your internet connection and try again.</p>
+    </div>
+
+    <div class="card">
+      <h3>Wallpaper isn't saving</h3>
+      <p>automatron needs photo library permission to save wallpapers. Go to Settings > automatron > Photos and make sure access is enabled. The app only requests add-only access.</p>
+    </div>
+
+    <div class="card">
+      <h3>Shortcut not appearing</h3>
+      <p>The "Generate Wallpaper" action registers automatically when you open the app. If it doesn't appear in Shortcuts, try opening automatron once, then search for "automatron" in the Shortcuts app.</p>
+    </div>
+
+    <div class="card">
+      <h3>Premium not restoring</h3>
+      <p>Tap "Restore Purchases" in Settings. Make sure you're signed into the same Apple ID used for the original purchase. It may take a moment for StoreKit to verify.</p>
+    </div>
+
+    <h2>Still need help?</h2>
+    <p>
+      Open an issue on <a href="https://github.com/dieeer" target="_blank" rel="noreferrer">GitHub</a>
+      and we'll get back to you.
+    </p>
+  </div>
+</body>
+</html>
