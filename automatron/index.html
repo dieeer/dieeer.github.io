@@ -3,9 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>automatron — Generate Wallpaper Shortcut</title>
-  <meta name="description" content="Add the automatron wallpaper shortcut to automate your iPhone wallpaper with Spotify album art.">
-  <meta property="og:title" content="automatron — Generate Wallpaper Shortcut">
+  <title>Automatron — Generate Wallpaper Shortcut</title>
+  <meta name="description" content="Add the Automatron wallpaper shortcut to automate your iPhone wallpaper with Spotify album art.">
+  <meta property="og:title" content="Automatron — Generate Wallpaper Shortcut">
   <meta property="og:description" content="Automate your iPhone wallpaper with your Spotify listening history.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://justinre.id/automatron">
@@ -52,8 +52,13 @@
       width: 80px;
       height: 80px;
       border-radius: 18px;
+      background: var(--glass);
+      border: 1px solid var(--glass-border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
       margin: 0 auto 20px;
-      display: block;
+      font-size: 36px;
     }
 
     .hero h1 {
@@ -216,42 +221,26 @@
       letter-spacing: 0.04em;
       text-transform: uppercase;
     }
-
-    .back {
-      display: inline-block;
-      color: var(--secondary);
-      text-decoration: none;
-      font-size: 13px;
-      margin-bottom: 24px;
-      transition: color 0.15s;
-    }
-
-    .back:hover { color: var(--cream); }
   </style>
 </head>
 <body>
   <div class="container">
-    <a class="back" href="/">&larr; justinre.id</a>
-
     <div class="hero">
-      <img class="app-icon" src="app-icon.png" alt="automatron icon">
-      <h1>automatron</h1>
+      <div class="app-icon">A</div>
+      <h1>Automatron</h1>
       <p>Turn your Spotify listening history into a wallpaper that updates itself.</p>
     </div>
 
     <div class="card">
-      <span class="badge">Siri Shortcut</span>
+      <span class="badge">App Shortcut</span>
       <h2>Generate Wallpaper</h2>
       <p>
         Creates a mosaic wallpaper from your recent Spotify album art using
-        your in-app modifiers — timescale, filters, grid size — and saves it
+        your current settings — timeframe, filters, grid size — and saves it
         straight to Photos.
       </p>
-      <a class="cta" href="shortcuts://run-shortcut?name=Generate%20Wallpaper">
-        Open in Shortcuts
-      </a>
-      <a class="cta-secondary" href="shortcuts://">
-        Open Shortcuts App
+      <a class="cta" href="shortcuts://">
+        Open Shortcuts
       </a>
     </div>
 
@@ -261,7 +250,7 @@
         <div class="step">
           <div class="step-icon">1</div>
           <div class="step-content">
-            <h3>Install automatron</h3>
+            <h3>Install Automatron</h3>
             <p>The app registers a native "Generate Wallpaper" action in Shortcuts automatically.</p>
           </div>
         </div>
@@ -276,14 +265,14 @@
           <div class="step-icon">3</div>
           <div class="step-content">
             <h3>Add the action</h3>
-            <p>Search for "automatron" and add the "Generate Wallpaper" action to your automation.</p>
+            <p>Search for "Automatron" and add the "Generate Wallpaper" action to your automation.</p>
           </div>
         </div>
         <div class="step">
           <div class="step-icon">4</div>
           <div class="step-content">
             <h3>Set your wallpaper</h3>
-            <p>Find the latest image in your "automatron" album in Photos. Pair with a Focus-linked wallpaper for fully hands-free switching.</p>
+            <p>Find the latest image in your "Automatron" album in Photos. Pair with a Focus-linked wallpaper for fully hands-free switching.</p>
           </div>
         </div>
       </div>
@@ -292,15 +281,14 @@
     <div class="tip">
       <span class="tip-icon">*</span>
       <p>
-        The shortcut uses whatever modifiers you've configured in the app — timescale, genre filters, grid columns, and watermark. Change them any time in Settings.
+        The action uses whatever settings you've configured in the app — timeframe, filters, grid columns, and watermark. Change them any time in-app.
       </p>
     </div>
 
     <div class="footer">
       <p>
-        <a href="/automatron/privacy">Privacy Policy</a>
-        &middot; <a href="/automatron/support">Support</a>
-        &middot; <a href="https://justinre.id">Justin Reid</a>
+        Built by <a href="https://github.com/dieeer">dieeer</a>
+        &middot; <a href="https://github.com/dieeer/automatron">Source</a>
       </p>
     </div>
   </div>
