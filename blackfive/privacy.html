@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>BLACK.FIVE — Privacy Policy</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin: 0; background: #0a0f0a; color: #cfe8cf;
+         font: 16px/1.6 -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; }
+  .wrap { max-width: 740px; margin: 0 auto; padding: 40px 22px 80px; }
+  h1, h2 { color: #4ef08a; font-weight: 700; line-height: 1.25; }
+  h1 { font-size: 28px; margin-bottom: 4px; }
+  h2 { font-size: 19px; margin-top: 32px; }
+  .meta { color: #6f8f6f; font-size: 14px; margin-bottom: 28px; }
+  a { color: #4ef08a; }
+  ul { padding-left: 22px; }
+  code { background: #14201470; padding: 1px 5px; border-radius: 3px; }
+  footer { margin-top: 48px; border-top: 1px solid #1d2c1d; padding-top: 16px; color: #6f8f6f; font-size: 14px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>BLACK.FIVE — Privacy Policy</h1>
+  <p class="meta">Last updated: 2 June 2026</p>
+
+  <p>BLACK.FIVE ("the app", "we", "us") is a real-time multiplayer card game. This policy
+  explains what data the app collects, why, and your choices. We aim to collect as little as
+  possible: <strong>no account, no email, no real name, and no third-party advertising or
+  analytics trackers.</strong></p>
+
+  <h2>1. Information we collect</h2>
+  <ul>
+    <li><strong>Player ID.</strong> When you first open the app it generates a random
+        identifier (a UUID) stored only on your device. It is not derived from your hardware,
+        phone number, email, or Apple ID, and it does not identify you personally.</li>
+    <li><strong>Player handle (callsign).</strong> A short nickname you choose for multiplayer.
+        You enter this yourself; you can leave it as the auto-generated default.</li>
+    <li><strong>Multiplayer room data.</strong> When you create or join a room we store the
+        room's 6-character code, its status, and the player IDs and handles of its members so
+        the game can be played. Live gameplay state is exchanged between players in the session.</li>
+    <li><strong>Local preferences.</strong> Settings such as audio, motion, and display options,
+        stored on your device only.</li>
+    <li><strong>Game Center (optional).</strong> If you are signed in to Game Center, Apple may
+        authenticate you for gameplay features. That data is managed by Apple under
+        <a href="https://www.apple.com/legal/privacy/">Apple's Privacy Policy</a>; we do not
+        receive your Apple ID.</li>
+  </ul>
+  <p>We do <strong>not</strong> collect location, contacts, photos, device identifiers for
+  tracking, advertising IDs, or analytics/crash-reporting data via third-party SDKs.</p>
+
+  <h2>2. How we use it</h2>
+  <p>Solely to provide the game: creating and joining rooms, showing who is in a session,
+  synchronising play in real time, and remembering your preferences. We do not use your data
+  for advertising, profiling, or tracking across apps or websites.</p>
+
+  <h2>3. Where it goes</h2>
+  <p>Multiplayer room data (room code, player IDs, handles, game state) is sent to our backend
+  provider, <strong>Supabase</strong>, which hosts the database and real-time service on our
+  behalf as a data processor. Data is transmitted over encrypted connections (HTTPS/WSS) and is
+  protected by server-side access rules so that rooms can only be read or modified through the
+  game's own functions, using a room's exact code. See
+  <a href="https://supabase.com/privacy">Supabase's Privacy Policy</a>.</p>
+  <p>We do not sell your data or share it with advertisers.</p>
+
+  <h2>4. Retention</h2>
+  <p>Your Player ID, handle, and preferences remain on your device until you delete them or
+  uninstall the app. Multiplayer rooms are transient: a room is removed when its host leaves or
+  it becomes empty, and abandoned rooms are purged automatically. We do not keep a long-term
+  history of your games.</p>
+
+  <h2>5. Your choices &amp; deletion</h2>
+  <ul>
+    <li>You can change or clear your handle at any time in the app.</li>
+    <li>Uninstalling the app removes all data stored on your device (your Player ID, handle,
+        and preferences).</li>
+    <li>To request deletion of any data associated with you from our backend, contact us at the
+        address below and we will action it.</li>
+  </ul>
+
+  <h2>6. Children</h2>
+  <p>BLACK.FIVE is not directed at children under 13 and is rated for ages 12+. It allows
+  real-time play with other people who may be strangers, and players choose their own handles.
+  We do not knowingly collect data from children under 13. If you believe a child has provided
+  data, contact us and we will remove it.</p>
+
+  <h2>7. Security</h2>
+  <p>Connections are encrypted in transit. Access to multiplayer data is restricted by
+  server-side rules; the app ships only a public, restricted key and cannot read or alter
+  arbitrary data. No system is perfectly secure, but we work to protect the limited data we hold.</p>
+
+  <h2>8. Changes</h2>
+  <p>We may update this policy as the app evolves. Material changes will be reflected here with a
+  new "Last updated" date.</p>
+
+  <h2>9. Contact</h2>
+  <p>Questions or data requests: <a href="mailto:privacy@justinre.id">privacy@justinre.id</a>.</p>
+
+  <footer>BLACK.FIVE · <a href="./terms.html">Terms of Service</a> ·
+  <a href="./support.html">Support</a></footer>
+</div>
+</body>
+</html>
