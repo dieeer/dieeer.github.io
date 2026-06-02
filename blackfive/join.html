@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Join BLACK.FIVE</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin: 0; background: #0a0f0a; color: #cfe8cf; min-height: 100vh;
+         display: flex; align-items: center; justify-content: center;
+         font: 16px/1.6 -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; }
+  .wrap { text-align: center; padding: 32px 22px; max-width: 420px; }
+  h1 { color: #4ef08a; letter-spacing: 2px; margin: 0 0 8px; }
+  .code { font-size: 30px; font-weight: 700; color: #4ef08a; letter-spacing: 6px; margin: 18px 0; }
+  .btn { display: inline-block; margin-top: 12px; padding: 14px 26px; border: 1px solid #4ef08a;
+         color: #4ef08a; text-decoration: none; border-radius: 6px; font-weight: 700; }
+  .muted { color: #6f8f6f; font-size: 14px; margin-top: 26px; }
+  a { color: #4ef08a; }
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <h1>BLACK.FIVE</h1>
+    <p>You've been invited to a game.</p>
+    <div class="code" id="code">…</div>
+    <a class="btn" id="open" href="#">OPEN IN APP</a>
+    <p class="muted">Don't have the app yet?
+      <a href="https://justinre.id/blackfive/">Learn more</a>.<br>
+      Or open BLACK.FIVE, tap MULTIPLAYER → JOIN, and enter the code above.</p>
+  </div>
+  <script>
+    var raw = new URLSearchParams(location.search).get('c') || '';
+    var code = raw.toUpperCase().replace(/[^A-Z0-9]/g, '').slice(0, 6);
+    document.getElementById('code').textContent = code || '— invalid link —';
+    var deep = 'blackfive://join/' + code;
+    var open = document.getElementById('open');
+    open.href = deep;
+    if (code) { setTimeout(function () { window.location.href = deep; }, 400); }
+  </script>
+</body>
+</html>
