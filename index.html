@@ -192,6 +192,33 @@
       background: var(--card);
     }
 
+    .hero-cta {
+      margin-top: 30px;
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .cta-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 14px;
+      font-weight: 600;
+      text-decoration: none;
+      background: var(--text);
+      color: var(--bg);
+      padding: 12px 20px;
+      border-radius: 12px;
+      transition: transform 0.15s ease, opacity 0.15s ease;
+    }
+    .cta-pill:hover { transform: translateY(-1px); opacity: 0.9; }
+    .cta-pill .arrow { transition: transform 0.15s ease; }
+    .cta-pill:hover .arrow { transform: translateX(3px); }
+
+    .cta-note { font-size: 13px; color: var(--subtle); }
+
     /* ---------- Sections ---------- */
     .section { margin-bottom: 52px; }
 
@@ -440,6 +467,38 @@
       .btn { flex: 1; justify-content: center; }
     }
   </style>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "Justin Reid",
+    "url": "https://justinre.id/",
+    "image": "https://justinre.id/og.png",
+    "jobTitle": "App Engineer & Product Designer",
+    "email": "mailto:hi@justinre.id",
+    "description": "App engineer and product designer in Edinburgh. Builds iOS apps end-to-end — design, Swift/SwiftUI, and backend — with experience in fintech and medical research (NHS and international contracts).",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Edinburgh",
+      "addressCountry": "GB"
+    },
+    "knowsAbout": [
+      "iOS development",
+      "Swift",
+      "SwiftUI",
+      "Product design",
+      "Backend / API development",
+      "App Intents and Shortcuts automation",
+      "Fintech",
+      "Medical and NHS software"
+    ],
+    "sameAs": [
+      "https://github.com/dieeer",
+      "https://www.linkedin.com/in/hijustinreid"
+    ]
+  }
+  </script>
 </head>
 <body>
   <main class="wrap">
@@ -464,6 +523,10 @@
         <span class="chip">Game Dev</span>
         <span class="chip">Fintech</span>
         <span class="chip">Medical / NHS</span>
+      </div>
+      <div class="hero-cta">
+        <a class="cta-pill" href="#contact">Get in touch <span class="arrow" aria-hidden="true">&rarr;</span></a>
+        <span class="cta-note">Edinburgh-based · works remotely</span>
       </div>
     </header>
 
@@ -547,7 +610,7 @@
       </div>
     </section>
 
-    <section class="section reveal d4">
+    <section class="section reveal d4" id="contact">
       <p class="section-label">Get in touch</p>
       <div class="contact-links">
         <a class="contact-link" href="mailto:hi@justinre.id">
