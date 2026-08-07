@@ -232,6 +232,8 @@
     }
 
     /* ---------- Featured (BLACK.FIVE) ---------- */
+    .featured-stack { display: flex; flex-direction: column; gap: 16px; }
+
     .featured {
       position: relative;
       display: block;
@@ -244,6 +246,17 @@
       border: 1px solid rgba(255,255,255,0.08);
       overflow: hidden;
       box-shadow: var(--shadow);
+    }
+
+    .featured-icon.letter {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(150deg, #2a2a30 0%, #141418 100%);
+      color: #f4f4f1;
+      font-family: 'Newsreader', Georgia, serif;
+      font-size: 30px;
+      font-weight: 600;
     }
 
     .featured-top {
@@ -532,27 +545,52 @@
 
     <section class="section reveal d1">
       <p class="section-label">Featured</p>
-      <div class="featured">
-        <div class="featured-top">
-          <img class="featured-icon" src="blackfive-icon-256.png" alt="BLACK.FIVE app icon" width="64" height="64">
-          <div class="featured-titles">
-            <div class="featured-name">BLACK.FIVE</div>
-            <div class="featured-tag">iOS · Real-time multiplayer card game</div>
+      <div class="featured-stack">
+        <div class="featured">
+          <div class="featured-top">
+            <img class="featured-icon" src="blackfive-icon-256.png" alt="BLACK.FIVE app icon" width="64" height="64">
+            <div class="featured-titles">
+              <div class="featured-name">BLACK.FIVE</div>
+              <div class="featured-tag">iOS · Real-time multiplayer card game</div>
+            </div>
+          </div>
+          <p class="featured-desc">
+            A fast, stylish card game played in real time over the internet — spin up
+            a room, share a code, and your crew drops in. Designed and built solo:
+            custom rendering, hand-tuned game feel, and a complete visual identity.
+            Free, no ads.
+          </p>
+          <div class="featured-actions">
+            <a class="btn btn-primary" href="https://testflight.apple.com/join/GUaEexkU" target="_blank" rel="noreferrer">
+              Play on TestFlight <span class="arrow" aria-hidden="true">&rarr;</span>
+            </a>
+            <a class="btn btn-ghost" href="https://github.com/dieeer/BLACK.FIVE" target="_blank" rel="noreferrer">
+              Source
+            </a>
           </div>
         </div>
-        <p class="featured-desc">
-          A fast, stylish card game played in real time over the internet — spin up
-          a room, share a code, and your crew drops in. Designed and built solo:
-          custom rendering, hand-tuned game feel, and a complete visual identity.
-          Free, no ads.
-        </p>
-        <div class="featured-actions">
-          <a class="btn btn-primary" href="https://testflight.apple.com/join/GUaEexkU" target="_blank" rel="noreferrer">
-            Play on TestFlight <span class="arrow" aria-hidden="true">&rarr;</span>
-          </a>
-          <a class="btn btn-ghost" href="https://github.com/dieeer/BLACK.FIVE" target="_blank" rel="noreferrer">
-            Source
-          </a>
+
+        <div class="featured">
+          <div class="featured-top">
+            <div class="featured-icon letter">W</div>
+            <div class="featured-titles">
+              <div class="featured-name">Wrangle</div>
+              <div class="featured-tag">iOS · Video color grading</div>
+            </div>
+          </div>
+          <p class="featured-desc">
+            Grade one subject in a video, not the whole frame. Tap or lasso a subject,
+            then push exposure and colour on just it — or just the background — while the
+            mask tracks it as it moves. All on-device.
+          </p>
+          <div class="featured-actions">
+            <a class="btn btn-primary" href="https://testflight.apple.com/join/wYA38jbs" target="_blank" rel="noreferrer">
+              Join the TestFlight beta <span class="arrow" aria-hidden="true">&rarr;</span>
+            </a>
+            <a class="btn btn-ghost" href="/wrangle/">
+              Details
+            </a>
+          </div>
         </div>
       </div>
     </section>
@@ -560,22 +598,6 @@
     <section class="section reveal d2">
       <p class="section-label">Also building</p>
       <div class="projects">
-        <a class="project" href="/wrangle/">
-          <div class="project-icon">W</div>
-          <div class="project-body">
-            <div class="project-header">
-              <span class="project-name">Wrangle</span>
-              <span class="project-tag">iOS · Video color grading</span>
-            </div>
-            <p class="project-desc">
-              Grade a video like a photo — one subject at a time. Tap or lasso a subject
-              and grade just it (or just the background) while an on-device model keeps the
-              mask locked on as it moves. Fully on-device. On TestFlight now.
-            </p>
-          </div>
-          <span class="project-arrow" aria-hidden="true">&rarr;</span>
-        </a>
-
         <a class="project" href="https://github.com/dieeer/Clendy" target="_blank" rel="noreferrer">
           <div class="project-icon alt2">C</div>
           <div class="project-body">

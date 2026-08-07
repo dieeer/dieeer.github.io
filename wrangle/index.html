@@ -224,8 +224,8 @@
 
     /* ---------- Gallery ---------- */
     .gallery {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      display: flex;
+      flex-wrap: wrap;
       gap: 16px;
     }
 
@@ -236,6 +236,8 @@
       background: #000;
       box-shadow: var(--shadow);
       line-height: 0;
+      max-width: 300px;
+      width: 100%;
     }
 
     .shot img {
@@ -258,24 +260,21 @@
 
     .feature {
       background: var(--card);
-      padding: 18px 22px;
+      padding: 16px 22px;
       display: flex;
-      gap: 15px;
-      align-items: flex-start;
+      gap: 14px;
+      align-items: center;
     }
 
     .feature-dot {
-      width: 8px;
-      height: 8px;
-      min-width: 8px;
+      width: 7px;
+      height: 7px;
+      min-width: 7px;
       border-radius: 50%;
       background: var(--accent);
-      margin-top: 9px;
     }
 
-    .feature-body { flex: 1; min-width: 0; }
-    .feature-title { font-weight: 600; font-size: 14.5px; margin-bottom: 2px; }
-    .feature-desc { font-size: 13.5px; color: var(--muted); line-height: 1.6; }
+    .feature-title { font-weight: 500; font-size: 14.5px; }
 
     /* ---------- Prose ---------- */
     .prose {
@@ -341,11 +340,8 @@
       <h1>Wrangle</h1>
       <p class="role">Grade a video like a photo — one subject at a time.</p>
       <p class="intro">
-        Wrangle is a native iOS app for subject-aware video color grading. You pick a
-        subject by tapping or lassoing it, and grade just that subject (or just the
-        background) — exposure, brightness, contrast, saturation — while an on-device
-        Track-Anything model keeps the selection on the subject as it moves. Everything
-        runs on-device; footage never leaves the phone.
+        Tap or lasso a subject, then grade just it — or just the background. The mask
+        tracks the subject as it moves. It all runs on the phone.
       </p>
       <div class="hero-cta">
         <a class="cta-pill" href="https://testflight.apple.com/join/wYA38jbs" target="_blank" rel="noreferrer">
@@ -361,9 +357,6 @@
         <div class="shot">
           <img src="screenshots/wrangle-01.png" alt="Wrangle detecting a subject in a video, ready to grade, with exposure, brightness, contrast and saturation controls" width="1320" height="2868" loading="lazy">
         </div>
-        <div class="shot">
-          <img src="screenshots/wrangle-02.png" alt="Wrangle showing the mask painted over the tracked subject with feather and edge refinement controls" width="1320" height="2868" loading="lazy">
-        </div>
       </div>
     </section>
 
@@ -372,59 +365,32 @@
       <div class="features">
         <div class="feature">
           <span class="feature-dot" aria-hidden="true"></span>
-          <div class="feature-body">
-            <div class="feature-title">In-app library picker</div>
-            <div class="feature-desc">Browse your videos with limited-access support and per-clip resolution badges, so you always know what you're grading.</div>
-          </div>
+          <div class="feature-title">Tap or lasso to pick a subject</div>
         </div>
         <div class="feature">
           <span class="feature-dot" aria-hidden="true"></span>
-          <div class="feature-body">
-            <div class="feature-title">Tap or lasso subject selection</div>
-            <div class="feature-desc">Tap a subject or circle your own, and on-device segmentation turns it into a precise mask.</div>
-          </div>
+          <div class="feature-title">Grade the subject, or invert for the background</div>
         </div>
         <div class="feature">
           <span class="feature-dot" aria-hidden="true"></span>
-          <div class="feature-body">
-            <div class="feature-title">Local grading inside the mask</div>
-            <div class="feature-desc">Adjust exposure, brightness, contrast, and saturation inside the mask — or invert it to grade everything but the subject.</div>
-          </div>
+          <div class="feature-title">Exposure, brightness, contrast, saturation</div>
         </div>
         <div class="feature">
           <span class="feature-dot" aria-hidden="true"></span>
-          <div class="feature-body">
-            <div class="feature-title">Mask refinement &amp; compare</div>
-            <div class="feature-desc">Feather and edge controls refine the mask, with a live mask preview and a before/after compare.</div>
-          </div>
+          <div class="feature-title">Feather and edge refinement, mask preview, before/after</div>
         </div>
         <div class="feature">
           <span class="feature-dot" aria-hidden="true"></span>
-          <div class="feature-body">
-            <div class="feature-title">Export back to Photos</div>
-            <div class="feature-desc">Render the graded video and save it straight back to your Photos library.</div>
-          </div>
+          <div class="feature-title">In-app library picker with resolution badges</div>
+        </div>
+        <div class="feature">
+          <span class="feature-dot" aria-hidden="true"></span>
+          <div class="feature-title">Export back to Photos</div>
         </div>
       </div>
     </section>
 
-    <section class="section reveal d4">
-      <p class="section-label">Why it's different</p>
-      <div class="prose">
-        <p>
-          Photo editors have had <strong>subject-aware</strong> adjustments for years — brush the
-          sky, lift the shadows on a face. Video has mostly meant grading the
-          <em>whole frame</em>, because the subject won't hold still.
-        </p>
-        <p>
-          Wrangle closes that gap. An on-device Track-Anything model follows your
-          selection frame to frame, so a local grade sticks to a moving subject with
-          no keyframing, no cloud, and nothing leaving the phone.
-        </p>
-      </div>
-    </section>
-
-    <footer class="reveal d5">
+    <footer class="reveal d4">
       <span>&copy; <span id="year">2026</span> Justin Reid · Edinburgh, UK</span>
       <span class="spacer"></span>
       <a href="./privacy.html">Privacy</a>
