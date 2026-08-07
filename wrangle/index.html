@@ -1,41 +1,441 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Wrangle — Subject-aware video grading</title>
-<style>
-  :root { color-scheme: dark; }
-  body { margin: 0; background: #111014; color: #d4d0ca;
-         font: 16px/1.6 -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; }
-  .wrap { max-width: 740px; margin: 0 auto; padding: 80px 22px; }
-  h1 { color: #e8c872; font-weight: 700; line-height: 1.25; font-size: 34px;
-       letter-spacing: 0.5px; margin-bottom: 8px; }
-  .tag { color: #a09888; font-size: 18px; margin: 0 0 40px; }
-  .desc { color: #a09888; line-height: 1.7; margin-bottom: 36px; max-width: 580px; }
-  nav a { display: inline-block; color: #e8c872; text-decoration: none;
-          border: 1px solid #2a2520; border-radius: 5px; padding: 9px 16px;
-          margin: 0 10px 10px 0; }
-  nav a:hover { background: #1e1a16; }
-  footer { margin-top: 56px; border-top: 1px solid #2a2520; padding-top: 16px;
-           color: #706860; font-size: 14px; }
-</style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Wrangle — Subject-aware video color grading</title>
+  <meta name="description" content="Wrangle is a native iOS app for subject-aware video color grading. Pick a subject by tapping or lassoing it, then grade just that subject — or just the background — while an on-device model keeps the selection locked on as it moves. Everything runs on-device." />
+  <meta name="author" content="Justin Reid" />
+  <link rel="canonical" href="https://justinre.id/wrangle/" />
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://justinre.id/wrangle/" />
+  <meta property="og:title" content="Wrangle — Subject-aware video color grading" />
+  <meta property="og:description" content="Grade a video like a photo — one subject at a time. Native iOS, fully on-device. In TestFlight beta." />
+  <meta property="og:image" content="https://justinre.id/wrangle/screenshots/wrangle-01.png" />
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Wrangle — Subject-aware video color grading" />
+  <meta name="twitter:description" content="Grade a video like a photo — one subject at a time. Native iOS, fully on-device. In TestFlight beta." />
+  <meta name="twitter:image" content="https://justinre.id/wrangle/screenshots/wrangle-01.png" />
+
+  <link rel="icon" href="/favicon.ico" sizes="any" />
+  <link rel="apple-touch-icon" href="/logo192.png" />
+  <meta name="theme-color" content="#fafaf8" media="(prefers-color-scheme: light)" />
+  <meta name="theme-color" content="#0e0e10" media="(prefers-color-scheme: dark)" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Newsreader:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg: #fafaf8;
+      --card: #ffffff;
+      --text: #111111;
+      --muted: #555555;
+      --subtle: #8a8a86;
+      --border: #e6e6e2;
+      --hover: #f3f3f0;
+      --dot: #1f9d57;
+      --ring: rgba(17,17,17,0.35);
+      --shadow: 0 1px 2px rgba(0,0,0,0.04), 0 8px 24px rgba(0,0,0,0.04);
+      --accent: #d98a2b;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg: #0e0e10;
+        --card: #161618;
+        --text: #f4f4f1;
+        --muted: #a6a6a2;
+        --subtle: #76766f;
+        --border: #262628;
+        --hover: #1d1d20;
+        --dot: #3ecf8e;
+        --ring: rgba(244,244,241,0.4);
+        --shadow: 0 1px 2px rgba(0,0,0,0.4), 0 12px 32px rgba(0,0,0,0.35);
+        --accent: #e8a24f;
+      }
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
+      line-height: 1.6;
+    }
+
+    a { color: inherit; }
+
+    :focus-visible {
+      outline: 2px solid var(--ring);
+      outline-offset: 3px;
+      border-radius: 4px;
+    }
+
+    .wrap {
+      max-width: 760px;
+      margin: 0 auto;
+      padding: 84px 24px 88px;
+    }
+
+    /* Entrance motion */
+    .reveal {
+      opacity: 0;
+      transform: translateY(14px);
+      animation: rise 0.7s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+    }
+    .d1 { animation-delay: 0.10s; }
+    .d2 { animation-delay: 0.18s; }
+    .d3 { animation-delay: 0.26s; }
+    .d4 { animation-delay: 0.34s; }
+    .d5 { animation-delay: 0.42s; }
+
+    @keyframes rise { to { opacity: 1; transform: none; } }
+
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      .reveal { animation: none; opacity: 1; transform: none; }
+    }
+
+    /* ---------- Back link ---------- */
+    .back {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--muted);
+      text-decoration: none;
+      margin-bottom: 28px;
+    }
+    .back:hover { color: var(--text); }
+    .back .arrow { transition: transform 0.15s ease; }
+    .back:hover .arrow { transform: translateX(-3px); }
+
+    /* ---------- Header ---------- */
+    header { margin-bottom: 48px; }
+
+    .status {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--muted);
+      border: 1px solid var(--border);
+      background: var(--card);
+      border-radius: 999px;
+      padding: 6px 13px 6px 11px;
+      margin-bottom: 26px;
+    }
+
+    .status .pulse {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--dot);
+      box-shadow: 0 0 0 0 var(--dot);
+      animation: pulse 2.4s infinite;
+    }
+
+    @keyframes pulse {
+      0%   { box-shadow: 0 0 0 0 rgba(31,157,87,0.5); }
+      70%  { box-shadow: 0 0 0 7px rgba(31,157,87,0); }
+      100% { box-shadow: 0 0 0 0 rgba(31,157,87,0); }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .status .pulse { animation: none; }
+    }
+
+    header h1 {
+      font-family: 'Newsreader', Georgia, serif;
+      font-size: clamp(2.6rem, 7vw, 4rem);
+      font-weight: 500;
+      letter-spacing: -0.035em;
+      line-height: 1.02;
+      margin-bottom: 14px;
+    }
+
+    .role {
+      font-family: 'Newsreader', Georgia, serif;
+      font-style: italic;
+      font-size: clamp(1.15rem, 3vw, 1.45rem);
+      font-weight: 400;
+      color: var(--text);
+      margin-bottom: 24px;
+    }
+
+    header .intro {
+      color: var(--muted);
+      font-size: 15.5px;
+      max-width: 600px;
+      line-height: 1.7;
+    }
+
+    .hero-cta {
+      margin-top: 30px;
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .cta-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 14px;
+      font-weight: 600;
+      text-decoration: none;
+      background: var(--text);
+      color: var(--bg);
+      padding: 12px 20px;
+      border-radius: 12px;
+      transition: transform 0.15s ease, opacity 0.15s ease;
+    }
+    .cta-pill:hover { transform: translateY(-1px); opacity: 0.9; }
+    .cta-pill .arrow { transition: transform 0.15s ease; }
+    .cta-pill:hover .arrow { transform: translateX(3px); }
+
+    .cta-note { font-size: 13px; color: var(--subtle); }
+
+    /* ---------- Sections ---------- */
+    .section { margin-bottom: 52px; }
+
+    .section-label {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.09em;
+      text-transform: uppercase;
+      color: var(--subtle);
+      margin-bottom: 18px;
+    }
+
+    /* ---------- Gallery ---------- */
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 16px;
+    }
+
+    .shot {
+      border-radius: 18px;
+      overflow: hidden;
+      border: 1px solid var(--border);
+      background: #000;
+      box-shadow: var(--shadow);
+      line-height: 0;
+    }
+
+    .shot img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    /* ---------- Feature list ---------- */
+    .features {
+      display: flex;
+      flex-direction: column;
+      gap: 1px;
+      background: var(--border);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: var(--shadow);
+    }
+
+    .feature {
+      background: var(--card);
+      padding: 18px 22px;
+      display: flex;
+      gap: 15px;
+      align-items: flex-start;
+    }
+
+    .feature-dot {
+      width: 8px;
+      height: 8px;
+      min-width: 8px;
+      border-radius: 50%;
+      background: var(--accent);
+      margin-top: 9px;
+    }
+
+    .feature-body { flex: 1; min-width: 0; }
+    .feature-title { font-weight: 600; font-size: 14.5px; margin-bottom: 2px; }
+    .feature-desc { font-size: 13.5px; color: var(--muted); line-height: 1.6; }
+
+    /* ---------- Prose ---------- */
+    .prose {
+      font-family: 'Newsreader', Georgia, serif;
+      font-size: 18px;
+      color: var(--muted);
+      line-height: 1.75;
+      max-width: 600px;
+    }
+    .prose p + p { margin-top: 16px; }
+    .prose strong { color: var(--text); font-weight: 600; }
+
+    /* ---------- Footer ---------- */
+    footer {
+      margin-top: 56px;
+      padding-top: 28px;
+      border-top: 1px solid var(--border);
+      font-size: 13px;
+      color: var(--subtle);
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px 18px;
+      align-items: center;
+    }
+    footer a { color: var(--muted); text-decoration: none; }
+    footer a:hover { color: var(--text); }
+    footer .spacer { flex: 1; }
+
+    /* ---------- Responsive ---------- */
+    @media (max-width: 480px) {
+      .wrap { padding: 48px 18px 64px; }
+      .feature { padding: 16px 16px; }
+      .cta-pill { flex: 1; justify-content: center; }
+    }
+  </style>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "Wrangle",
+    "operatingSystem": "iOS",
+    "applicationCategory": "MultimediaApplication",
+    "url": "https://justinre.id/wrangle/",
+    "description": "Native iOS app for subject-aware video color grading. Pick a subject by tapping or lassoing it, then grade just that subject — or just the background — while an on-device Track-Anything model keeps the selection locked on as it moves. Everything runs on-device.",
+    "author": {
+      "@type": "Person",
+      "name": "Justin Reid",
+      "url": "https://justinre.id/"
+    }
+  }
+  </script>
 </head>
 <body>
-<div class="wrap">
-  <h1>Wrangle</h1>
-  <p class="tag">Import a video, lasso a subject, and grade it like a photo.</p>
-  <p class="desc">
-    Subject-aware video grading for iPhone. Pick a subject, grade it independently
-    of the background, and export — all on-device via Apple's Vision framework.
-    Nothing leaves your phone.
-  </p>
-  <nav>
-    <a href="./privacy.html">Privacy Policy</a>
-    <a href="./terms.html">Terms of Service</a>
-    <a href="./support.html">Support</a>
-  </nav>
-  <footer>Wrangle · <a href="mailto:hello@justinre.id">hello@justinre.id</a></footer>
-</div>
+  <main class="wrap">
+    <a class="back reveal" href="/"><span class="arrow" aria-hidden="true">&larr;</span> Justin Reid</a>
+
+    <header class="reveal d1">
+      <span class="status">
+        <span class="pulse" aria-hidden="true"></span>
+        In TestFlight beta
+      </span>
+      <h1>Wrangle</h1>
+      <p class="role">Grade a video like a photo — one subject at a time.</p>
+      <p class="intro">
+        Wrangle is a native iOS app for subject-aware video color grading. You pick a
+        subject by tapping or lassoing it, and grade just that subject (or just the
+        background) — exposure, brightness, contrast, saturation — while an on-device
+        Track-Anything model keeps the selection on the subject as it moves. Everything
+        runs on-device; footage never leaves the phone.
+      </p>
+      <div class="hero-cta">
+        <a class="cta-pill" href="https://testflight.apple.com/join/wYA38jbs" target="_blank" rel="noreferrer">
+          Join the TestFlight beta <span class="arrow" aria-hidden="true">&rarr;</span>
+        </a>
+        <span class="cta-note">iOS · free while in beta</span>
+      </div>
+    </header>
+
+    <section class="section reveal d2">
+      <p class="section-label">Screenshots</p>
+      <div class="gallery">
+        <div class="shot">
+          <img src="screenshots/wrangle-01.png" alt="Wrangle detecting a subject in a video, ready to grade, with exposure, brightness, contrast and saturation controls" width="1320" height="2868" loading="lazy">
+        </div>
+        <div class="shot">
+          <img src="screenshots/wrangle-02.png" alt="Wrangle showing the mask painted over the tracked subject with feather and edge refinement controls" width="1320" height="2868" loading="lazy">
+        </div>
+      </div>
+    </section>
+
+    <section class="section reveal d3">
+      <p class="section-label">What it does</p>
+      <div class="features">
+        <div class="feature">
+          <span class="feature-dot" aria-hidden="true"></span>
+          <div class="feature-body">
+            <div class="feature-title">In-app library picker</div>
+            <div class="feature-desc">Browse your videos with limited-access support and per-clip resolution badges, so you always know what you're grading.</div>
+          </div>
+        </div>
+        <div class="feature">
+          <span class="feature-dot" aria-hidden="true"></span>
+          <div class="feature-body">
+            <div class="feature-title">Tap or lasso subject selection</div>
+            <div class="feature-desc">Tap a subject or circle your own, and on-device segmentation turns it into a precise mask.</div>
+          </div>
+        </div>
+        <div class="feature">
+          <span class="feature-dot" aria-hidden="true"></span>
+          <div class="feature-body">
+            <div class="feature-title">Local grading inside the mask</div>
+            <div class="feature-desc">Adjust exposure, brightness, contrast, and saturation inside the mask — or invert it to grade everything but the subject.</div>
+          </div>
+        </div>
+        <div class="feature">
+          <span class="feature-dot" aria-hidden="true"></span>
+          <div class="feature-body">
+            <div class="feature-title">Mask refinement &amp; compare</div>
+            <div class="feature-desc">Feather and edge controls refine the mask, with a live mask preview and a before/after compare.</div>
+          </div>
+        </div>
+        <div class="feature">
+          <span class="feature-dot" aria-hidden="true"></span>
+          <div class="feature-body">
+            <div class="feature-title">Export back to Photos</div>
+            <div class="feature-desc">Render the graded video and save it straight back to your Photos library.</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section reveal d4">
+      <p class="section-label">Why it's different</p>
+      <div class="prose">
+        <p>
+          Photo editors have had <strong>subject-aware</strong> adjustments for years — brush the
+          sky, lift the shadows on a face. Video has mostly meant grading the
+          <em>whole frame</em>, because the subject won't hold still.
+        </p>
+        <p>
+          Wrangle closes that gap. An on-device Track-Anything model follows your
+          selection frame to frame, so a local grade sticks to a moving subject with
+          no keyframing, no cloud, and nothing leaving the phone.
+        </p>
+      </div>
+    </section>
+
+    <footer class="reveal d5">
+      <span>&copy; <span id="year">2026</span> Justin Reid · Edinburgh, UK</span>
+      <span class="spacer"></span>
+      <a href="./privacy.html">Privacy</a>
+      <a href="./support.html">Support</a>
+      <a href="./terms.html">Terms</a>
+      <a href="/">Portfolio</a>
+    </footer>
+  </main>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
 </body>
 </html>
